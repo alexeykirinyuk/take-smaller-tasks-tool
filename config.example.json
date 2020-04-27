@@ -1,23 +1,30 @@
 {
-    "login": "Jira User Name",
-    "token": "Jira Token",
-    "domain": "Jira Domain",
-    "large": [
-      "L (< 10d)",
-      "L (7-15d - old)",
-      "L (9 - 13 PU)",
-      "XL (> 10d)",
-      "XL  (>15d - old)",
-      "XL (14 - 21 PU)",
-      "XXXXL (> 21 PU)"
-    ],
-    "small": [
-      "M (< 5d)",
-      "M (3-7d - old)",
-      "M (4 - 8 PU)",
-      "S (< 2d)",
-      "S (1 - 3 PU)"
-    ],
-    "issuesByEstimation": "\"Size\" in (%s)`",
-    "allIssuesWithEstimation": "\"Size\" not in (\"Unknown\")"
+  "login": "Jira User Name",
+  "token": "Jira Token",
+  "domain": "Jira Domain",
+  "large": [
+    "L (< 10d)",
+    "L (7-15d - old)",
+    "L (9 - 13 PU)",
+    "XL (> 10d)",
+    "XL  (>15d - old)",
+    "XL (14 - 21 PU)",
+    "XXXXL (> 21 PU)"
+  ],
+  "small": [
+    "M (< 5d)",
+    "M (3-7d - old)",
+    "M (4 - 8 PU)",
+    "S (< 2d)",
+    "S (1 - 3 PU)"
+  ],
+  "issuesByEstimation": "\"Size\" in (%s)`",
+  "allIssuesWithEstimation": "\"Size\" not in (\"Unknown\")",
+  "emailNotificationsEnabled": true,
+  "smtp": {
+    "userName": "user name",
+    "password": "password",
+    "domain": "domain",
+    "port": 0
   }
+}

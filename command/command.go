@@ -5,6 +5,7 @@ import (
 	"github.com/alexeykirinyuk/take-smaller-tasks-tool/config"
 	"github.com/alexeykirinyuk/take-smaller-tasks-tool/history"
 	"github.com/alexeykirinyuk/take-smaller-tasks-tool/jira"
+	"github.com/alexeykirinyuk/take-smaller-tasks-tool/notification"
 	"time"
 )
 
@@ -49,10 +50,20 @@ func Execute() (*history.History, error) {
 		SmallCount:  smallCount,
 		AllCount:    allCount,
 		HasWarnings: withWarning,
-		LargeTasks:  largeIssues,
+		LargeIssues: largeIssues,
 	})
 
 	h = history.Justify(h)
+
+	if c.EmailNotificationsEnabled {
+		notificator := notification.CreteNotificator(c.SMTP)
+
+		err = notificator.Notify(h)
+		if err != nil {
+			return nil, err
+		}
+	}
+
 	err = history.Save(h)
 	if err != nil {
 		return nil, err

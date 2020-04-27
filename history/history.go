@@ -21,7 +21,7 @@ type HistoryItem struct {
 	SmallCount  int
 	AllCount    int
 	HasWarnings bool
-	LargeTasks  []*jira.Issue
+	LargeIssues []*jira.Issue
 }
 
 func Get() (history *History, err error) {
@@ -98,7 +98,7 @@ func (h *History) String() string {
 	b.WriteString("Date\t\tLarge\\Small\t\tAll Estimated\t\tWith Warnings\t\tLarge Tasks\r\n")
 	for _, item := range h.Items {
 		var largeIssues []string
-		for _, i := range item.LargeTasks {
+		for _, i := range item.LargeIssues {
 			largeIssues = append(largeIssues, i.String())
 		}
 

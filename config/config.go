@@ -6,6 +6,13 @@ import (
 	"os"
 )
 
+type SMTPConfiguration struct {
+	UserName string
+	Password string
+	Domain   string
+	Port     int
+}
+
 type Configuration struct {
 	Login  string
 	Token  string
@@ -15,6 +22,9 @@ type Configuration struct {
 	Small                   []string
 	IssuesByEstimation      string
 	AllIssuesWithEstimation string
+
+	EmailNotificationsEnabled bool
+	SMTP                      SMTPConfiguration
 }
 
 func Get() (config Configuration, err error) {
