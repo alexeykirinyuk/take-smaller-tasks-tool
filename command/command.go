@@ -19,12 +19,12 @@ func Execute() (*history.History, error) {
 		return nil, err
 	}
 
-	largeCount, err := jiraService.GetCountByEstimations(c.Large)
+	largeIssues, err := jiraService.GetLargeIssues()
 	if err != nil {
 		return nil, err
 	}
 
-	smallCount, err := jiraService.GetCountByEstimations(c.Small)
+	smallCount, err := jiraService.GetSmallIssuesCount()
 	if err != nil {
 		return nil, err
 	}
@@ -34,7 +34,7 @@ func Execute() (*history.History, error) {
 		return nil, err
 	}
 
-	withWarning := smallCount+largeCount != allCount
+	withWarning := smallCount+len(largeIssues) != allCount
 
 	now := time.Now()
 
@@ -45,10 +45,11 @@ func Execute() (*history.History, error) {
 
 	h.Items = append(h.Items, history.HistoryItem{
 		Date:        now,
-		LargeCount:  largeCount,
+		LargeCount:  len(largeIssues),
 		SmallCount:  smallCount,
 		AllCount:    allCount,
 		HasWarnings: withWarning,
+		LargeTasks:  largeIssues,
 	})
 
 	h = history.Justify(h)

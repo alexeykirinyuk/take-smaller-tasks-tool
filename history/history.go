@@ -3,6 +3,7 @@ package history
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/alexeykirinyuk/take-smaller-tasks-tool/jira"
 	"os"
 	"strings"
 	"time"
@@ -20,6 +21,7 @@ type HistoryItem struct {
 	SmallCount  int
 	AllCount    int
 	HasWarnings bool
+	LargeTasks  []*jira.Issue
 }
 
 func Get() (history *History, err error) {
@@ -93,14 +95,20 @@ func Justify(history *History) *History {
 func (h *History) String() string {
 	b := strings.Builder{}
 
-	b.WriteString("Date\t\tLarge\\Small\t\tAll Estimated\t\tWith Warnings\r\n")
+	b.WriteString("Date\t\tLarge\\Small\t\tAll Estimated\t\tWith Warnings\t\tLarge Tasks\r\n")
 	for _, item := range h.Items {
-		s := fmt.Sprintf("%s\t%d\\%d\t\t\t%d\t\t\t%t\r\n",
+		var largeIssues []string
+		for _, i := range item.LargeTasks {
+			largeIssues = append(largeIssues, i.String())
+		}
+
+		s := fmt.Sprintf("%s\t%d\\%d\t\t\t%d\t\t\t%t\t\t\t%s\r\n",
 			item.Date.Format("02.01.2006"),
 			item.LargeCount,
 			item.SmallCount,
 			item.AllCount,
-			item.HasWarnings)
+			item.HasWarnings,
+			strings.Join(largeIssues, ", "))
 		b.WriteString(s)
 	}
 
