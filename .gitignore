@@ -13,3 +13,10 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+config.json
+config.env-*.json
+
+cron-out
+history.json
+take-smaller-tasks-tool
